@@ -1,0 +1,59 @@
+<div class="video-background">
+  <video autoplay muted loop playsinline>
+    <source src="/teaser.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <div class="video-overlay"></div>
+</div>
+
+<div class="register-container">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
+    <h2>Create Account</h2>
+    <p class="subtitle">Join us to start your journey</p>
+    
+    <div class="input-group">
+      <i class="fas fa-user"></i>
+      <input id="username" formControlName="username" placeholder="Enter username" />
+    </div>
+
+    <div class="input-group">
+      <i class="fas fa-lock"></i>
+      <input id="password" type="password" formControlName="password" placeholder="Enter password" />
+    </div>
+
+    <div class="input-group">
+      <i class="fas fa-id-card"></i>
+      <input id="immatricule" formControlName="immatricule" placeholder="Enter immatricule" />
+    </div>
+
+    <div class="input-group">
+      <i class="fas fa-envelope"></i>
+      <input id="adresse" type="email" formControlName="adresse" placeholder="Enter email address" />
+    </div>
+
+    <button type="submit" [disabled]="isLoading" class="register-btn">
+      <span *ngIf="!isLoading">Register</span>
+      <span *ngIf="isLoading" class="spinner"></span>
+    </button>
+
+    <div class="message-container">
+      <div class="error-message" *ngIf="errorMessage">
+        <i class="fas fa-exclamation-circle"></i>
+        {{ errorMessage }}
+      </div>
+
+      <div class="success-message" *ngIf="successMessage">
+        <i class="fas fa-check-circle"></i>
+        {{ successMessage }}
+      </div>
+    </div>
+  </form>
+
+  <div class="login-section">
+    <p>Already have an account?</p>
+    <button class="login-btn" routerLink="/login">
+      <i class="fas fa-sign-in-alt" routerLink="/Login"></i> Sign In
+       
+    </button>
+  </div>
+</div>

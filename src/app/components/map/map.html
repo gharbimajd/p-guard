@@ -1,0 +1,18 @@
+<div class="status-container">
+  <h2>Selection</h2>
+  <div id="robot-map" class="map"></div>
+
+  <div class="button-group">
+    <button (click)="toggleSelection()">
+      {{ selecting ? ' Disable Select' : '🖊 Select' }}
+    </button>
+    <button (click)="startTracking()">Start Tracking</button>
+    <button (click)="clearSelection()" [disabled]="!selectedGeometry">
+       Clear
+    </button>
+  </div>
+
+  <div *ngIf="loading" class="loading">
+     Processing selection...
+  </div>
+</div>

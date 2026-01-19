@@ -1,0 +1,36 @@
+.live-feed {
+  padding: 20px;
+  background-color: #282625;
+  color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0, 255, 255, 0.3);
+  margin: 20px auto;
+  max-width: 800px;
+  text-align: center;
+}
+
+.live-feed h2 {
+  margin-bottom: 16px;
+  font-size: 1.8rem;
+  color: #08a49c;
+}
+
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%; 
+  background-color: #282625;
+  border: 2px solid #08857f;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+video#robot-camera {
+  position: absolute;
+  transform: scaleX(-1);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

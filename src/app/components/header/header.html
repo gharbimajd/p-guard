@@ -1,0 +1,22 @@
+<header class="main-header">
+  <h1>
+    <img src="icon.png" alt="Shield" class="icon-inline">
+    P‑guard
+  </h1>
+ <nav class="nav-bar">
+   <a routerLink="/dashboard" routerLinkActive="active-link">Home</a>
+  <a routerLink="/status" routerLinkActive="active-link">Selection</a>
+  <a routerLink="/roads"  routerLinkActive="active-link">Roads</a>
+  <a routerLink="/live"   routerLinkActive="active-link">Live Feed</a>
+    <!-- Lien de login/logout -->
+    <a routerLink="/login" routerLinkActive="active" *ngIf="!isLoggedIn">Login</a>
+    <button (click)="logout()" *ngIf="isLoggedIn" class="logout-btn">Logout</button>
+    
+    <!-- Afficher le nom d'utilisateur quand connecté -->
+    <span *ngIf="isLoggedIn" class="user-info">
+      Welcome, {{ currentUser?.username }}
+    </span>
+
+</nav>
+
+</header>

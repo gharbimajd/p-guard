@@ -1,0 +1,167 @@
+<div class="main-container">
+  <!-- Top section - Map -->
+  <div class="map-section">
+    <div class="map-container">
+      <div id="map"></div>
+      
+      <!-- Loading overlay -->
+      <div class="loading-overlay" *ngIf="loading">
+        <div class="loading-spinner"></div>
+        <p>Loading roads data...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Middle section - Buttons (horizontal) -->
+  <div class="buttons-section">
+    <!-- Intersection buttons -->
+    <div class="button-group">
+      <button *ngIf="!intersectionsMarked" 
+              (click)="markIntersections()" 
+              class="mission-button mark-button"
+              [disabled]="loading">
+        {{ loading ? 'Loading...' : 'Mark Intersections' }}
+      </button>
+      
+      <button *ngIf="intersectionsMarked" 
+              (click)="unmarkIntersections()" 
+              class="mission-button unmark-button">
+        Unmark Intersections
+      </button>
+    </div>
+
+    <!-- Mission creation buttons -->
+    <div class="button-group" *ngIf="!isCreatingMission">
+      <button (click)="startMissionCreation()" class="mission-button mission-start-button">
+        Create Mission
+      </button>
+    </div>
+
+    <div class="button-group mission-controls-group" *ngIf="isCreatingMission">
+      <button (click)="addStartPoint()" class="mission-button"
+              [class.active]="currentMissionStage === 'selecting_start'">
+        {{ hasStartPoint() ? 'Change Start' : 'Add Start' }}
+      </button>
+      
+      <button (click)="addStationPoint()" class="mission-button"
+              [class.active]="currentMissionStage === 'selecting_stations'">
+        Add Station
+      </button>
+      
+      <button (click)="addEndPoint()" class="mission-button"
+              [class.active]="currentMissionStage === 'selecting_end'">
+        {{ hasEndPoint() ? 'Change End' : 'Add End' }}
+      </button>
+      
+      <button (click)="addOrientationPoint()" class="mission-button"
+              [class.active]="currentMissionStage === 'selecting_orientation'">
+        Add Orientation
+      </button>
+      
+      <button (click)="generateDirections()" class="mission-button generate-button"
+              [disabled]="!hasValidMissionPoints()">
+        Generate Directions
+      </button>
+      
+      <button (click)="clearMission()" class="mission-button clear-button">
+        Clear All
+      </button>
+    </div>
+  </div>
+
+  <!-- Bottom section - Mission Panel -->
+  <div class="mission-sidebar" *ngIf="isCreatingMission">
+    <div class="sidebar-header">
+      <h2>Mission Planner</h2>
+      <button (click)="saveMission()" class="mission-button save-button"
+              [disabled]="!hasValidMissionPoints()">
+        💾 Save Mission
+      </button>
+    </div>
+
+    <div class="mission-status" *ngIf="currentMissionStage !== 'idle'">
+      <div class="status-indicator">
+        <strong>Current Action:</strong> {{ getCurrentStageInstruction() }}
+      </div>
+    </div>
+
+    <!-- Mission Points Table -->
+    <div class="mission-table-section">
+      <h3>Mission Points ({{ missionPoints.length }})</h3>
+      <div class="table-container">
+        <table class="mission-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Type</th>
+              <th>Coordinates</th>
+              <th>Road ID</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let point of missionPoints; let i = index" 
+                [class]="'point-type-' + point.type">
+              <td class="point-number">{{i + 1}}</td>
+              <td>
+                <span class="point-badge {{point.type}}">{{point.type.toUpperCase()}}</span>
+                <span *ngIf="point.type === 'station'" class="station-number">
+                  Station {{getStationNumber(point)}}
+                </span>
+              </td>
+              <td class="coordinates">
+                {{point.lat.toFixed(6)}}, {{point.lng.toFixed(6)}}
+              </td>
+              <td>{{point.roadId || 'N/A'}}</td>
+              <td>
+                <button (click)="removePoint(i)" class="btn-remove" title="Remove point">
+                  🗑️
+                </button>
+                <button *ngIf="point.type === 'orientation'" 
+                        (click)="setDirection(point, 'forward')" 
+                        class="btn-direction"
+                        title="Set forward direction">
+                  ➡️
+                </button>
+                <button *ngIf="point.type === 'orientation'" 
+                        (click)="setDirection(point, 'backward')" 
+                        class="btn-direction"
+                        title="Set backward direction">
+                  ⬅️
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="missionPoints.length === 0">
+              <td colspan="5" class="no-points-message">No points added yet</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Directions Section -->
+    <div class="directions-section" *ngIf="missionInstructions.length > 0">
+      <h3>Mission Directions</h3>
+      <div class="directions-list">
+        <ol>
+          <li *ngFor="let instruction of missionInstructions; let i = index" 
+              class="direction-item">
+            {{instruction}}
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- Orientation Guide -->
+    <div class="orientation-guide">
+      <h3>Orientation Guide</h3>
+      <div class="guide-content">
+        <p>• <strong>Start Point</strong>: Mission starting location (Green)</p>
+        <p>• <strong>Stations</strong>: Intermediate checkpoints (Turquoise)</p>
+        <p>• <strong>End Point</strong>: Mission destination (Charcoal)</p>
+        <p>• <strong>Orientation Points</strong>: Direction indicators (Turquoise)</p>
+        <p>• Click orientation buttons (➡️/⬅️) to set robot direction</p>
+      </div>
+    </div>
+  </div>
+</div>

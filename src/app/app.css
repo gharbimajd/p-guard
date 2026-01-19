@@ -1,0 +1,30 @@
+
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.app-body {
+  flex: 1;             
+  display: flex;        
+}
+html, body {
+  height: 100%;  
+  margin: 0;
+}
+app-root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;   
+}
+
+
+.app-body {
+  flex: 1 1 auto;     
+  display: flex;
+  flex-direction: column;   
+  min-height: 5;      
+  background-color: rgba(255,255,255,0.6);
+}

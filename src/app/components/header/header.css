@@ -1,0 +1,54 @@
+.main-header {
+  background: #282625;
+  color: #fff;
+  padding: 1rem 2rem;
+  display: flex;
+  border-radius: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  font-family: "Segoe UI",  sans-serif; 
+  margin-bottom: 100;
+}
+.icon-inline {
+  width: 150px;
+  height: 50px;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+
+.main-header nav {
+  display: flex;
+  gap: 5rem;      
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;          
+}
+
+.main-header a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+
+.main-header a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -0.25rem;
+  width: 0;
+  height: 2px;
+  background: #08a49c;    
+  transition: width 0.3s ease;
+}
+
+.main-header a:hover,
+.main-header a.active {
+  color: #08a49c;
+}
+
+.main-header a:hover::after,
+.main-header a.active::after {
+  width: 100%;
+}
