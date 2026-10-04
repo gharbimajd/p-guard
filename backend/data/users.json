@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "username": "admin",
+    "password": "password123",
+    "immatricule": "PG-001",
+    "adresse": "admin@pguard.com",
+    "createdAt": "2026-10-04T21:10:41.903Z"
+  },
+  {
+    "id": 2,
+    "username": "user",
+    "password": "password123",
+    "immatricule": "PG-002",
+    "adresse": "user@pguard.com",
+    "createdAt": "2026-10-04T21:10:41.904Z"
+  },
+  {
+    "id": 3,
+    "username": "testpilot",
+    "password": "password123",
+    "immatricule": "ROBOT-99",
+    "adresse": "pilot@pguard.com",
+    "createdAt": "2026-10-04T21:11:33.506Z"
+  }
+]

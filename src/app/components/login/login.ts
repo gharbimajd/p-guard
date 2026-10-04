@@ -52,7 +52,7 @@ export class Login implements OnInit {
             localStorage.setItem('token', res.token); // Si vous gérez des tokens
 
             // B. On redirige vers la page d'accueil (ou dashboard)
-            this.router.navigate(['/home']); 
+            this.router.navigate(['/dashboard']); 
         } else {
             // C. Si le mot de passe est faux
             this.errorMessage = res.message;

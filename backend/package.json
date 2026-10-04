@@ -1,0 +1,13 @@
+{
+  "name": "pguard-backend",
+  "version": "1.0.0",
+  "description": "P-Guard Backend Authentication and Management API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": ["pguard", "backend", "auth", "api"],
+  "author": "",
+  "license": "ISC"
+}
